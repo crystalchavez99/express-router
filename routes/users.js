@@ -16,4 +16,14 @@ userRouter.post("/", async(req,res) =>{
     let newUser = await User.create(req.body);
     res.json(newUser)
 })
+userRouter.put("/:id", async(req,res) =>{
+    let user = await User.findByPk(req.params.id);
+    await user.update(req.body)
+})
+userRouter.delete("/:id", async(req,res) =>{
+    let user = await User.findByPk(req.params.id);
+    await user.destroy();
+    res.send(`Deleted user`)
+})
 
+module.exports = userRouter;
