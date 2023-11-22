@@ -12,3 +12,8 @@ userRouter.get("/:id", async(req,res) =>{
     let user = await User.findByPk(req.params.id);
     res.json(user)
 })
+userRouter.post("/", async(req,res) =>{
+    let newUser = await User.create(req.body);
+    res.json(newUser)
+})
+
