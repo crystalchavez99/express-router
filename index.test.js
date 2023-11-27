@@ -33,3 +33,35 @@ describe("User Endpoints", () =>{
         expect(response.statusCode).toBe(200)
     })
 })
+
+describe("Fruit Endpoints", () =>{
+    test("GET / all fruits", async() =>{
+        const response = await request(app).get("/fruits")
+        expect(response.body.length).toBeGreaterThan(2)
+    })
+
+    test("GET /fruits/:id",async () =>{
+        const response = await request(app).get("/fruits/1")
+        expect(response.body.name).toEqual("Apple")
+    })
+
+    test("POST /fruits create new fruit", async() =>{
+        const response = await request(app).post("/fruits").send({
+            name: "Grape",
+            color: "purple"
+        }).set('Accept', 'application/json')
+        expect(response.body.color).toBe("purple")
+    })
+
+    test("PUT /fruits/:id update fruit", async() =>{
+        const response = await request(app).put("/fruits/5").send({
+            name: "Plum",
+        }).set('Accept', 'application/json')
+        expect(response.body.name).toBe("Plum")
+    });
+
+    test("DELETE /fruits/:id delete fruit",async () =>{
+        const response = await request(app).del("/fruits/5")
+        expect(response.statusCode).toBe(200)
+    })
+})
