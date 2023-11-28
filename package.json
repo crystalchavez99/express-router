@@ -22,7 +22,7 @@
   "homepage": "https://github.com/MultiverseLearningProducts/express-router#readme",
   "dependencies": {
     "express": "^4.17.3",
-    "express-validator": "^6.14.0",
+    "express-validator": "^6.15.0",
     "sequelize": "^6.31.0",
     "sqlite3": "^5.1.6"
   },

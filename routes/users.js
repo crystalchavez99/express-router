@@ -1,5 +1,7 @@
 const express = require("express");
 
+const {check, validationResult} = require("express-validator")
+
 const userRouter = express.Router();
 
 const {User} = require("../models/index")
