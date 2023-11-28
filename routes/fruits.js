@@ -2,7 +2,8 @@ const express = require("express");
 
 const fruitRouter = express.Router();
 
-const {Fruit} = require("../models/index")
+const {Fruit} = require("../models/index");
+const {check, validationResult} = require("express-validator")
 
 fruitRouter.get("/", async(req,res) =>{
     let fruits = await Fruit.findAll();
@@ -14,10 +15,16 @@ fruitRouter.get("/:id", async(req,res) =>{
     res.json(fruit)
 })
 
-fruitRouter.post("/", async(req,res) =>{
+fruitRouter.post("/", [check("color").notEmpty()],async(req,res) =>{
     //const { name, age } = req.body;
-    let newfruit = await Fruit.create(req.body);
-    res.json(newfruit)
+    const errors = validationResult(req)
+    if(!errors.isEmpty()){
+        res.json({errors: errors.array()})
+    }else{
+        let newfruit = await Fruit.create(req.body);
+        res.json(newfruit)
+    }
+
 })
 fruitRouter.put("/:id", async(req,res) =>{
     let fruit = await Fruit.findByPk(req.params.id);

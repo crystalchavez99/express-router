@@ -16,10 +16,15 @@ userRouter.get("/:id", async(req,res) =>{
     res.json(user)
 })
 
-userRouter.post("/", async(req,res) =>{
+userRouter.post("/", [check("name").notEmpty()],async(req,res) =>{
     //const { name, age } = req.body;
+    const errors = validationResult(req);
+   if(!errors.isEmpty()){
+        res.json({errors: errors.array()})
+    }else{
     let newUser = await User.create(req.body);
     res.json(newUser)
+    }
 })
 userRouter.put("/:id", async(req,res) =>{
     let user = await User.findByPk(req.params.id);
