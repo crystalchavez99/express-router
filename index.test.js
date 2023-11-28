@@ -64,4 +64,15 @@ describe("Fruit Endpoints", () =>{
         const response = await request(app).del("/fruits/5")
         expect(response.statusCode).toBe(200)
     })
+
+    test("POST /users return errors array", async() =>{
+        const response = await request(app).post("/users")
+        .send({age: 23})
+        expect(response.body).toHaveProperty("errors")
+    })
+    test("POST /fruits return errors array", async() =>{
+        const response = await request(app).post("/fruits")
+        .send({name: "Plum"})
+        expect(response.body).toHaveProperty("errors")
+    })
 })
